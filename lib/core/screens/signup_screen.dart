@@ -3,14 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone_demo/core/utils/colors.dart';
 import 'package:instagram_clone_demo/core/widgets/text_filed_input.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
@@ -44,6 +44,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 64,
               ),
               const SizedBox(height: 64),
+              //* circular widget to accept and show our selected file
+              Stack(
+                children: [
+                  const CircleAvatar(
+                    radius: 64,
+                    backgroundImage: NetworkImage(
+                        "https://images.unsplash.com/photo-1553272725-086100aecf5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"),
+                  ),
+                  Positioned(
+                    bottom: -15,
+                    left: 85,
+                    child: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.add_a_photo)),
+                  )
+                ],
+              ),
+              SizedBox(height: 24),
+              //* input for username
+              TextFieldInput(
+                  textEditController: _usernameController,
+                  hintText: "Enter your username",
+                  textInputType: TextInputType.text),
+              const SizedBox(height: 24),
               //* input for email
               TextFieldInput(
                   textEditController: _emailController,
@@ -57,6 +80,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputType: TextInputType.text,
                 isPass: true,
               ),
+              const SizedBox(height: 24),
+              //* input for bio
+              TextFieldInput(
+                  textEditController: _bioController,
+                  hintText: "Enter your bio",
+                  textInputType: TextInputType.text),
               const SizedBox(height: 24),
               //*login button
               GestureDetector(
