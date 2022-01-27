@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone_demo/core/resources/auth_methods.dart';
+import 'package:instagram_clone_demo/core/responsive/mobile_screen_layout.dart';
+import 'package:instagram_clone_demo/core/responsive/responsive_layout_screen.dart';
+import 'package:instagram_clone_demo/core/responsive/web_screen_layout.dart';
+import 'package:instagram_clone_demo/core/screens/login_screen.dart';
 import 'package:instagram_clone_demo/core/utils/colors.dart';
 import 'package:instagram_clone_demo/core/utils/utils.dart';
 import 'package:instagram_clone_demo/core/widgets/text_filed_input.dart';
@@ -129,13 +133,14 @@ class _SignupScreenState extends State<SignupScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: Text("Don't have an account?"),
+                      child: Text("Do you have an account?"),
                       padding: EdgeInsets.symmetric(vertical: 8),
                     ),
                     InkWell(
+                      onTap: navigateToLogin,
                       child: Container(
                         child: Text(
-                          "Sign up",
+                          "Login",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         padding: EdgeInsets.symmetric(vertical: 8),
@@ -168,6 +173,11 @@ class _SignupScreenState extends State<SignupScreen> {
 
     if (res != "success") {
       showSnackBar(res, context);
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout())));
     }
   }
 
@@ -176,5 +186,10 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _image = im;
     });
+  }
+
+  void navigateToLogin() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }

@@ -2,7 +2,10 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:instagram_clone_demo/core/resources/storage_methods.dart';
+import 'package:instagram_clone_demo/core/screens/home_screen.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -50,6 +53,23 @@ class AuthMethods {
       } else if (err.code == "weak-password") {
         res = "Password should be at least 6 characters";
       }
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  //* logging in user
+  Future<String> loginUser(
+      {required String email, required String password}) async {
+    String res = "Some Error occurred";
+    try {
+      if (email.isNotEmpty || password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = "Success";
+      } else
+        res = "Please enter all the fields";
     } catch (e) {
       res = e.toString();
     }
